@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+
+
+<h2 style="text-align: center;">{{aukcija.nazivpredmeta}} (prodavac:  <a href="{% url 'prikaz_korisnika' aukcija.idprodavca.pk %}">{{aukcija.idprodavca}}</a>)</h2>
+
+<div class="slideshow-container">
+	<div class="mySlides" align="center" style="display: block;">
+		<div class="numbertext">1 / {{slike|length}}</div>
+  		{% with slike|first as img %}
+  			<img class="slsh" src="{{ img.slika.url }}" style="max-width: 500px;max-height: 400px; vertical-align: middle;">
+  		{% endwith %}
+	</div>
+
+	{% for s in slike %}
+	{% if forloop.counter != 1%}
+	<div class="mySlides" align="center">
+		<div class="numbertext">{{forloop.counter}} / {{slike|length}}</div>
+		<img class="slsh" src="{{ s.slika.url }}" style="max-width: 500px;max-height: 400px; vertical-align: middle;">
+  	
+	</div>
+	{% endif %}
+	{% endfor %}
+	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+	<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<div style="text-align:center">
+	{% for s in slike %}
+  <span class="dot" onclick="currentSlide({{forloop.counter}})"></span>  
+  {% endfor %}
+</div>
+
+<div style="width: 500px; margin: auto; margin-top: 10px;" align="center">
+	<p style="float: left;"><b>Aktuelna ponuda:</b> {{aukcija.aktuelnaponuda}} din</p>
+{% if user.is_authenticated and aukcija.idprodavca != user and aukcija.aktivna %}
+   	<a class="btn btn-primary" href="{% url 'add_to_wishlist' aukcija.idaukcije %}" > 
+   			Dodaj u listu zelja
+    </a>
+{% else %}
+<button href='#' class="btn btn-primary" disabled>
+          Dodaj u listu zelja
+</button>
+{% endif %}
+
+
+</div>
+<div>
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+</div>
+<div style="width: 700px; margin: auto; margin-top: 10px;" align="center">
+	<form method='POST' name="ponudaForm" style="float: left;"  > {% csrf_token %}
+		{{ form}}
+		{% if user.is_authenticated and aukcija.idprodavca != user and aukcija.aktivna %}
+			<input type="submit"  class="btn btn-primary" name="save" value="Ponudi">
+		{% else %}
+			<input type="submit"  class="btn btn-primary" name="save" value="Ponudi" disabled>
+		{% endif %}
+	</form>
+
+	{% if aukcija.kupiodmah %}
+		<b>Kupi odmah:</b> {{aukcija.kupiodmahcena}} din
+		{% if user.is_authenticated and aukcija.idprodavca != user and aukcija.aktivna %}
+			<a href="{% url 'kupi_odmah' aukcija.idaukcije %}"><button class="btn btn-primary">Kupi odmah</button></a>
+		{% else %}
+			<a href="{% url 'kupi_odmah' aukcija.idaukcije %}"><button  class="btn btn-primary" disabled>Kupi odmah</button></a>
+		{% endif %}
+	{% else %}
+	<br><br>
+	{% endif %}
+</div>
+
+<div style="margin-top: 10px; margin:auto;width: 700px;" >
+	{% if aukcija.aktivna %}
+		<p><b>Istice za:</b> {{vreme}}</p>
+	{% else %}
+		<p><b>Zavrsena!</b></p>
+	{% endif %}
+
+</div>
+
+{% if vrednosti.all %}
+<div style="width: 700px; margin:auto; margin-top: 10px;">
+	<p style="float: left;"><b>Karakteristike:</b></p>
+	<table class="table table-sm table-bordered" style="width: 400px; margin:auto;">
+		<tbody>
+		{% for v in vrednosti.all %}
+		<tr>
+			<td>{{v.idosobine.nazivosobine}}</td>
+			<td>{{v.vrednost}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+</div>
+{% endif %}
+<div style="width: 700px; margin:auto; margin-top: 10px;" >
+{% if aukcija.opispredmeta %}
+		<b>Opis:</b>
+		<p>{{aukcija.opispredmeta}}</p>
+{% endif %}
+</div>
+
+{% endblock %}
+

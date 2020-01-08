@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h4 style="text-align: center;">Dodavanje aukcije!</h4>
+<br>
+<form method='POST' name="auctionForm" style="margin:auto;width: 700px;"> {% csrf_token %}
+	<table align="center" style="width: 500px; text-align: left;">
+		{{ form.as_table }}
+	</table>
+	<center><input type="submit"  class="btn btn-primary" name="save" value="Next >"> </center>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<br><br>
+<div style="text-align: center;">
+<form method="POST" enctype="multipart/form-data" style="margin:auto;width: 400px"> {% csrf_token %}
+	<div style="width: 400px; text-align: left;">
+		{% for item in list %}
+		{{item.0}}:{{item.1.as_p}}
+		
+		{% endfor %}
+	</div>
+	<table align="center" style="width: 400px; text-align: left;">
+		{{formset.as_table}}
+	</table>
+	
+	<input type="submit" value="Add" class="btn btn-primary" name="add_photos">
+</form>
+</div>
+{% endblock%}

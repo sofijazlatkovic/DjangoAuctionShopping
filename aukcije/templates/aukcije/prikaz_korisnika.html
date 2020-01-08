@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Korisnik {{korisnik}}</h3><br>
+<div style="text-align: justify; width:600px;" >
+<p style="text-align: justify;">Ime i prezime: {{korisnik.first_name}} {{korisnik.last_name}}</p>
+<p>Datum prijave: {{korisnik.date_joined|date:'d/M/Y H:i'}}</p>
+<p>Poslednja prijava: {{korisnik.last_login|date:'d/M/Y H:i'}}</p>
+{% if korisnik.grad and korisnik.drzava %}
+<p>Mesto: {{korisnik.grad}}, {{korisnik.drzava}}</p>
+{% endif %}
+</div>
+<h4>Ocene</h4>
+{% if ocene %}
+	<p>Pozitivnih: {{pozitivne|length}}/{{ocene|length}}</p>
+	
+	<table class="table" >
+	<thead>
+		<tr>
+			<th scope="col">Datum</th>
+			<th scope="col">Ocena</th>
+			<th scope="col">Komentar</th>
+			<th scope="col">Ocenio</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for ocena in ocene %}
+		{% if ocena.ocena == 'pozitivna' %}
+		<tr class="table-success">
+			<td>{{ocena.datum|date:'d/M/Y H:i'}}</td>
+			<td>{{ocena.ocena}}</td>
+			<td>{{ocena.komentar}}</td>
+			<td>{{ocena.ocenio}} <a href="{% url 'prikaz_korisnika' ocena.ocenjivac.pk %}">{{ocena.ocenjivac}}</a></td>
+		</tr>
+		{% else %}
+		<tr class="table-danger">
+			<td>{{ocena.datum|date:'d/M/Y H:i'}}</td>
+			<td>{{ocena.ocena}}</td>
+			<td>{{ocena.komentar}}</td>
+			<td>{{ocena.ocenio}} <a href="{% url 'prikaz_korisnika' ocena.ocenjivac.pk %}">{{ocena.ocenjivac}}</a></td>
+		</tr>
+		{% endif %}
+
+	</tbody>
+	{% endfor %}
+	</table>
+
+{% else %}
+<p>Korisnik jos nema ocena</p>
+{% endif %}
+{% endblock %}

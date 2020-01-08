@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<br>
+<h4 style="text-align: center"> Ocenite {{korisnik}}: </h4> <br>
+<form method="POST" style="margin:auto;width: 305px">{% csrf_token %}
+<table align="center" >
+{{ form.as_table }}
+</table>
+<center><input type="submit" class="btn btn-primary" name="oceni" value="Oceni"></center>
+
+</form>
+{% endblock %}

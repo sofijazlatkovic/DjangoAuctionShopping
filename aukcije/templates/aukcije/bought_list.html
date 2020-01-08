@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content%}
+{% if prodaje %}
+<table class="table table-hover" style="width: 70%; margin-top: 30px;" align="center">
+<thead>
+	<tr>
+		<th scope="col">Aukcija</th>
+		<th scope="col">Prodavac</th>
+		<th scope="col">Krajnja cena</th>
+		<th scope="col">Oceni</th>
+	</tr>
+</thead>
+{% for item in lista %}
+
+<tr>
+	{% with item.0.idaukcije.slika_set.all|first as img %}
+	<td><img height="100px" width="100px" src="{{ img.slika.url }}" style="float: left;" /><a href="{% url 'auction-details' item.0.idaukcije.idaukcije %}">{{item.0.idaukcije.nazivpredmeta}}</a></td>
+  	
+	{% endwith %}
+	
+	<td><a href="{% url 'prikaz_korisnika' item.0.idaukcije.idprodavca.pk %}">{{item.0.idaukcije.idprodavca}}</a></td>
+	<td>{{item.0.krajnjacena}} din</td>
+	{% if item.1 %}
+	<td>Ocenjeno! {{item.1.ocena|title}} ocena!</td>
+	{% else %}
+	<td><a href="{% url 'ocenjivanje' item.0.pk %}">Oceni prodavca</a></td>
+	{% endif %}
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

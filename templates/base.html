@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	  <link rel="stylesheet" href="{% static 'aukcije/css/font-awesome.min.css' %}">
+      <!--animate css-->
+      <link rel="stylesheet" href="{% static 'aukcije/css/animate-wow.css' %}">
+      <!--main css-->
+      <link rel="stylesheet" href="{% static 'aukcije/css/bootstrap-select.min.css'%}">
+      <link rel="stylesheet" href="{% static 'aukcije/css/slick.min.css' %}">
+      <link rel="stylesheet" href="{% static 'aukcije/css/select2.min.css' %}">
+      <!--responsive css-->
+      <link rel="stylesheet" href="{% static 'aukcije/css/responsive.css' %}">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{% static 'aukcije/css/style.css' %}">
+	<!-- <script src="static/aukcije/js/slideshow.js"></script> -->
+	
+	<title>{% block title %}Online aukcije{% endblock %}</title>
+
+</head>
+
+<body>
+
+<div style="float: right; margin-right: 20px; margin-top: 10px;">
+	{% if user.is_authenticated %}
+  		Dobrodosli <a href="{% url 'prikaz_korisnika' user.pk %}">{{ user.username }}</a>!
+  		<p><a href="{% url 'logout' %}">Logout</a></p>
+	{% else %}
+	  <p>Niste ulogovani</p>
+	  <a href="{% url 'login' %}">Login</a> |
+	  <a href="{% url 'signup' %}">Signup</a>
+	{% endif %}
+</div>
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'home' %}" aria-selected="true">Home</a>
+  </li>
+  {% if user.is_authenticated %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'create_auction'%}" aria-selected="false">Dodaj aukciju</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'show_wishlist' %}" aria-selected="false">Moja lista zelja</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'bought_list' %}" aria-selected="false">Kupio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'sold_list' %}" aria-selected="false">Prodao</a>
+  </li>
+  {% endif %}
+
+<li class="nav-item dropdown">
+  
+            
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kategorije</a>
+      <ul class="dropdown-menu">
+      {% for k in kategorije%}
+        {% if k.kategorija_set.all %}
+          <li class="dropdown-submenu">
+                <a href="{% url 'home_by_category' k.idkategorija %}" class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{k.naziv}}</a>
+                <ul class="dropdown-menu">
+              {% for podk in k.kategorija_set.all %}
+                
+                    <li><a class="dropdown-item" href="{% url 'home_by_category' podk.idkategorija %}">{{podk.naziv}}</a></li>
+                
+              {% endfor %} 
+        </ul>
+        </li>
+      {% else %}
+        <li><a class="dropdown-item" href="{% url 'home_by_category' k.idkategorija %}">{{k.naziv}}</a></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+</li>
+            
+</ul>
+  
+	{% block content %}
+	{% endblock %}
+</body>
+</html>
+

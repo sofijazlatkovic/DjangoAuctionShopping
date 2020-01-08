@@ -1,0 +1,352 @@
+/*-------------------------------------------------------------------------------------- 
+	Theme Name: Chamb - Responsive E-commerce HTML5 Template 
+---------------------------------------------------------------------------------------- 
+    
+	1. IMPORT FILES
+	2. BASE CSS 
+	3. HEADER
+	   - Logo
+	   - Search Bar
+	4. PAGE CONTENT PRODUCT 
+	5. SECTION
+	   - Products Exciting
+	   - Start Free
+	6. PRODUCT
+	7. FOOTER
+	   - Copyright
+	8. INNER PAGE   
+	   - How it Works
+	   - About Us
+	   - Terms Page
+	   - Cooming Soon
+	   - Category
+	   - Profile
+	   - Pricing
+	   - Product Page
+	   - New Layout css
+	
+--------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------- 
+	1. IMPORT FILES
+-------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+/**-- font-family: 'Raleway', sans-serif; --**/
+
+
+/*------------------------------------------------------------- 
+	2. BASE CSS 
+-------------------------------------------------------------*/
+
+body {
+	font-weight: 400;
+	margin: 0px;
+	overflow-x: hidden;
+	padding: 0px;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin: 0
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: auto;
+	padding: 0px;
+	margin-top: 40px;
+}
+
+ul,
+ol {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+	-webkit-text-decoration: none;
+	-moz-text-decoration: none;
+	-ms-text-decoration: none;
+	-o-text-decoration: none;
+	text-decoration: none;
+	transition: ease all 0.5s;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+
+
+
+/*------------------------------------------------------------- 
+	2. HEADER 
+-------------------------------------------------------------*/
+
+header .navbar {
+	border-radius: 0px;
+}
+
+#header.top-head {
+	background: #fff;
+}
+
+header .navbar-default {
+	background-color: transparent;
+	border: none;
+	margin-bottom: 0px;
+	position: relative;
+	-webkit-box-shadow: 0 15px 19px -19px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 15px 19px -19px rgba(0, 0, 0, 0.1);
+}
+
+header .navbar-default .navbar-header {
+	z-index: 1030;
+	position: relative;
+	background: #fff;
+}
+
+
+
+#boxscroll {
+	padding: 12px 10px;
+	height: 280px;
+	width: 100%;
+	border: none;
+	overflow: auto;
+	margin-bottom: 20px;
+}
+
+
+.preview {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+
+@media screen and (max-width: 996px) {
+	.preview {
+		margin-bottom: 20px;
+	}
+}
+
+.preview-pic {
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+
+.preview-thumbnail.nav-tabs {
+	border: none;
+	margin-top: 15px;
+}
+
+.preview-thumbnail.nav-tabs li {
+	width: 24%;
+	margin: 0 0.5%;
+}
+
+.preview-thumbnail.nav-tabs li img {
+	max-width: 100%;
+	display: block;
+}
+
+.preview-thumbnail.nav-tabs li a {
+	padding: 0;
+	margin: 0;
+	border-radius: 2px;
+	border: 3px solid #ddd;
+}
+
+.preview-thumbnail.nav-tabs li:last-of-type {
+	margin-right: 0;
+}
+
+.tab-content {
+	overflow: hidden;
+}
+
+.preview-pic.tab-content {
+	border: 3px solid #ddd;
+	width: 99%;
+	margin: 0.5%;
+}
+
+.tab-content img {
+	width: 100%;
+	-webkit-animation-name: opacity;
+	animation-name: opacity;
+	-webkit-animation-duration: .3s;
+	animation-duration: .3s;
+}
+
+.preview-thumbnail.nav-tabs li.active a {
+	border: 3px solid #01b888;
+}
+
+.spe-a {
+	padding-bottom: 25px;
+}
+
+.spe-a ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.spe-a ul li p {
+	line-height: 34px;
+}
+
+.spe-a ul li {
+	border-bottom: 1px solid #eeeeee;
+}
+
+.spe-a ul li .col-md-4 {
+	padding-left: 0px;
+}
+
+
+
+/*-- New Layout css --*/
+
+.start-free-box div.container {
+	position: relative;
+}
+
+.bg_img_left {
+	background-position: 142% center;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	padding: 0;
+	position: absolute;
+	right: -45%;
+}
+
+.bg_img_right {
+	background-position: 142% center;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	padding: 0;
+	position: absolute;
+	left: -45%;
+}
+
+.bg_img_left img,
+.bg_img_right img {
+	width: 100%;
+}
+
+.nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
+}
+
+.gallery {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+ 
+}
+
+.galery .tumbnail{
+  height: 100px;
+  width: 100px;
+}
+
+/* SLIDESHOW */
+
+
+.mySlides{display: none;}
+img .slsh{vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 500px;
+  max-height: 400px;
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+/* Number text  */
+.numbertext {
+  color: black;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.dot:hover {
+  background-color: #717171;
+}
+
+

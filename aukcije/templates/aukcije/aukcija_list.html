@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Aukcije</h2>
+    <ul>
+        {% for aukcija in object_list %}
+            {{ aukcija.nazivpredmeta }}<br>
+        {% endfor %}
+    </ul>
+{% endblock %}
